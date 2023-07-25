@@ -1,11 +1,10 @@
 import Link from "next/link";
+import { NAV_ITEMS, Navigation } from "./Navigation";
 
 const TheHeader = () => {
   return (
     <header>
-      <Link href="/">Home</Link>
-      <Link href="/blog">Blog</Link>
-      <Link href="/about">About</Link>
+      <Navigation navLinks={NAV_ITEMS}/>
     </header>
   );
 };

@@ -21,7 +21,8 @@ export const Posts = () => {
         </li>
         ))}
       </ul>
-    )}</>
+      )}
+    </>
 
   )
 

@@ -2,13 +2,18 @@
 
 import { usePathname } from 'next/navigation';
 import { NavProps } from './types';
+import { useSession,  signOut } from 'next-auth/react'
 import Link from 'next/link';
 
 
 const Navigation = ({navLinks} : NavProps) => {
-  const pathname = usePathname()
+  const pathname = usePathname();
+  const session = useSession();
 
-  return <>{
+  console.log(session)
+
+  return <>
+    {
     navLinks.map(link => {
       const isActive = pathname === link.href;
 
@@ -24,7 +29,21 @@ const Navigation = ({navLinks} : NavProps) => {
       )
 
     })
-  }</>
+    }
+    
+    {/* private routes */}
+    {session?.data && (
+      <Link href='/profile'>Profile</Link>
+    )}
+
+    {/* Sign Out and SignIn */}
+    {session?.data ? (
+      <Link href="#" onClick={() => signOut({
+      callbackUrl: '/'})}>Sign Out</Link>
+     ) : (
+      <Link href='/api/auth/signin'>SignIn</Link>
+    )}
+    </>
 };
 
 export {Navigation}

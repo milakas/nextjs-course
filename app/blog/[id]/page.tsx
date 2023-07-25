@@ -1,14 +1,5 @@
+import { getPostsById } from "@/services/getPosts";
 import { Metadata } from "next";
-
-async function getData(id: string) {
-  const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
-    next: {
-      revalidate: 60
-    }
-  })
-
-  return response.json()
-}
 
 type Props = {
   params: {
@@ -17,7 +8,7 @@ type Props = {
 } 
 
 export const generateMetadata = async ({ params: { id } }: Props): Promise<Metadata> => {
-  const post = await getData(id)
+  const post = await getPostsById(id)
 
   return {
     title: post.title
@@ -25,7 +16,7 @@ export const generateMetadata = async ({ params: { id } }: Props): Promise<Metad
 }
 
 const Post = async ({ params: { id } }: Props) => {
-  const post = await getData(id)
+  const post = await getPostsById(id)
 
   return (
     <section>

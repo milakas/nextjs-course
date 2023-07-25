@@ -13,3 +13,15 @@ export const getPostsBySearch = async(search: string) => {
 
   return response.json()
 }
+
+export const getPostsById = async(id: string) => {
+  const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+    next: {
+      revalidate: 60
+    }
+  })
+
+  if (!response.ok) throw new Error('Unable to fetch posts by id')
+
+  return response.json()
+}

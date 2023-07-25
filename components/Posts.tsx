@@ -3,22 +3,9 @@ import Link from "next/link"
 import useSWR from 'swr'
 import { getAllPosts } from "@/services/getPosts"
 
-// import { UsePosts } from "@/store"
-// import { useEffect } from "react"
-// import { shallow } from "zustand/shallow"
-
 
 export const Posts = () => {
   const {data: posts, isLoading} = useSWR('posts', getAllPosts)
-  // const [posts, loading, getAllPosts] = UsePosts(state => [
-  //   state.posts,
-  //   state.loading,
-  //   state.getAllPosts
-  // ], shallow)
-
-  // useEffect(() => {
-  //   getAllPosts()
-  // }, [getAllPosts])
 
   return (
     <>

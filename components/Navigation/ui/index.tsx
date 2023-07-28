@@ -10,40 +10,40 @@ const Navigation = ({navLinks} : NavProps) => {
   const pathname = usePathname();
   const session = useSession();
 
-  console.log(session)
+  return (
+    <>
+      {
+      navLinks.map(link => {
+        const isActive = pathname === link.href;
 
-  return <>
-    {
-    navLinks.map(link => {
-      const isActive = pathname === link.href;
+        return (
+          <Link
+            key={link.label}
+            href={link.href}
+            className={isActive ? 'active' : ''}
+          >
+            {link.label}
+          </Link>
 
-      return (
-        <Link
-          key={link.label}
-          href={link.href}
-          className={isActive ? 'active' : ''}
-        >
-          {link.label}
-        </Link>
+        )
 
-      )
+      })
+      }
+      
+      {/* private routes */}
+      {session?.data && (
+        <Link href='/profile'>Profile</Link>
+      )}
 
-    })
-    }
-    
-    {/* private routes */}
-    {session?.data && (
-      <Link href='/profile'>Profile</Link>
-    )}
-
-    {/* Sign Out and SignIn */}
-    {session?.data ? (
-      <Link href="#" onClick={() => signOut({
-      callbackUrl: '/'})}>Sign Out</Link>
-     ) : (
-      <Link href='/api/auth/signin'>SignIn</Link>
-    )}
+      {/* Sign Out and SignIn */}
+      {session?.data ? (
+        <Link href="#" onClick={() => signOut({
+        callbackUrl: '/'})}>Sign Out</Link>
+      ) : (
+        <Link href='/signin'>SignIn</Link>
+      )}
     </>
+  )
 };
 
 export {Navigation}
